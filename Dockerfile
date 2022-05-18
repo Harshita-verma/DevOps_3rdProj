@@ -1,9 +1,15 @@
-FROM ubuntu 
-MAINTAINER user@gmail.com 
+FROM centos
 
-RUN apt-get update 
-RUN apt-get install –y nginx 
-CMD [“echo”,”Image created”] 
+MAINTAINER myself <mymail@mail.com>
+
+LABEL Remarks="This is a Dockerfile for CentOS System"
+
+#Update Software Repository
+RUN yum -y install epel-release
+RUN yum -y update
+RUN yum -y install nginx
+
+ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
  
 # FROM  centos:latest
 # MAINTAINER vikashashoke@gmail.com
