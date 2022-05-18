@@ -1,16 +1,9 @@
-FROM debian:bullseye-slim
+FROM ubuntu 
+MAINTAINER user@gmail.com 
 
-LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
-RUN --mount=type=secret,id=nginx-crt,dst=nginx-repo.crt \
-    --mount=type=secret,id=nginx-key,dst=nginx-repo.key \
-    set -x \
-    
-    EXPOSE 80
-
-STOPSIGNAL SIGQUIT
-
-CMD ["nginx", "-g", "daemon off;"]
- 
+RUN apt-get update 
+RUN apt-get install –y nginx 
+CMD [“echo”,”Image created”] 
  
 # FROM  centos:latest
 # MAINTAINER vikashashoke@gmail.com
