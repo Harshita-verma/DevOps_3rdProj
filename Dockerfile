@@ -1,20 +1,15 @@
-FROM  centos:latest
-MAINTAINER vikashashoke@gmail.com
- RUN yum update -y
- RUN yum install -y ngnix \
- 
- 
- RUN yum install -y httpd \
- zip
- unzip
- 
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html/
-WORKDIR /var/www/html/
-RUN unzip photogenic.zip
-RUN cp -rvf photogenic/* .
-RUN rm -rf photogenic photogenic.zip
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-EXPOSE 80 
+FROM debian:bullseye-slim
+
+LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
+RUN --mount=type=secret,id=nginx-crt,dst=nginx-repo.crt \
+    --mount=type=secret,id=nginx-key,dst=nginx-repo.key \
+    set -x \
+    
+    EXPOSE 80
+
+STOPSIGNAL SIGQUIT
+
+CMD ["nginx", "-g", "daemon off;"]
  
  
 # FROM  centos:latest
